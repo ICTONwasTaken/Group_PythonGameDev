@@ -28,6 +28,7 @@ player = { #3
 }
 
 menu = ["1. Attack", "2. Run"]
+#Add "skills" to menu
 
 print(f"Welcome to the Dungeon! {player['name']}")
 
@@ -39,7 +40,9 @@ def display_menu():
     
 #9
 while True:
-    
+    #maybe add shop here?
+
+
     monst_name, monst_atk, monst_hp = spawn_monster() #12
     print(f"You have encountered a {monst_name}")
     display_menu()

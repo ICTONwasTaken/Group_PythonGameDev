@@ -26,3 +26,6 @@ def spawn_monster():
         #Attack, Exhaustion, Special Ability?, Heavy Attack
 #Be unfair
     #-no coddling the player, THEY MUST DIE
+#How to get to boss?
+    #-Set condition that if looped == BLANK then boss appears?
+    #Whatever else
