@@ -1,6 +1,16 @@
 import attack_system
 from monsters import spawn_monster
 
+#REQUIREMENTS
+#dungeon game
+#player name add
+#stats
+#classes
+#ATTACK
+#defense and skill
+#gold and shop
+#If die = end, if kill boss = end
+
 name = input("What would be your player name?")
 player = {
     
