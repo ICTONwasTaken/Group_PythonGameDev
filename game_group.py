@@ -23,9 +23,10 @@ player = { #3
     
     "name": name.capitalize(),
     "atk": 3,
-    "hp" : 5
+    "hp" : 15
     
 }
+extra = 0
 
 menu = ["1. Attack", "2. Run"]
 #Add "skills" to menu
@@ -49,8 +50,8 @@ while True:
     action = input("Please select your action: ")
     if action == "1":
 
-        monster_hp = attack_system.damage_monster(monst_hp, player["atk"])
-        
+        monster_hp = attack_system.damage_monster(monst_hp, player["atk"], monst_def, extra)
+
         if monster_hp <= 0:
         
             print(f"You have defeated the monster")
@@ -58,9 +59,10 @@ while True:
         else:
             
             player["hp"] = attack_system.damage_player(player["hp"], monst_atk) #11
-            print(f"You have now {player["hp"]} HP")
+            if player["hp"] < 0: #makes sure that it doesn't go into negatives, yeh
+                    player["hp"] = 0
+            print(f"HP has been reduced to {player["hp"]}!")
             if player["hp"] <= 0: #8
-            
                 print("You died")
                 break
                 
