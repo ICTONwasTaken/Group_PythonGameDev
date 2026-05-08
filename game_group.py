@@ -1,4 +1,4 @@
-import attack_system, skill_system
+import attack_system, skill_system, random
 from monsters import spawn_monster
 
 #REQUIREMENTS
@@ -23,10 +23,13 @@ player = { #3
     
     "name": name.capitalize(),
     "atk": 3,
-    "hp" : 15
+    "hp" : 15,
+    "def" : 1
     
 }
+#game variables
 extra = 0
+tired = 0
 
 menu = ["1. Attack", "2. Run"]
 #Add "skills" to menu
@@ -43,30 +46,65 @@ def display_menu():
 while True:
     #maybe add shop here?
 
+    #reset
+    tired = 0
 
     monst_name, monst_atk, monst_hp, monst_def = spawn_monster() #12
     print(f"You have encountered a {monst_name}")
-    display_menu()
-    action = input("Please select your action: ")
-    if action == "1":
-
-        monster_hp = attack_system.damage_monster(monst_hp, player["atk"], monst_def, extra)
-
-        if monster_hp <= 0:
-        
-            print(f"You have defeated the monster")
-            
+    print(f"~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~")
+    while True:
+        if tired == 1: #if the monster is tired
+            print(f"------------------------------")
+            print("The monster is tired...") #skip everything else
+            print(f"------------------------------")
         else:
-            
-            player["hp"] = attack_system.damage_player(player["hp"], monst_atk) #11
-            if player["hp"] < 0: #makes sure that it doesn't go into negatives, yeh
-                    player["hp"] = 0
-            print(f"HP has been reduced to {player["hp"]}!")
-            if player["hp"] <= 0: #8
+            pattern = random.randrange(1, 3) #pick a num 1-3, never plays if tired
+            if pattern == 1:
+                print(f"The monster intends to attack for {monst_atk} damage!")
+
+            if pattern == 2:
+                print(f"The monster exerts itself to deal extra damage!")
+        display_menu()
+        action = input("Please select your action\n>")
+        
+        if action == "1":
+
+            monst_hp = attack_system.damage_monster(monst_hp, player["atk"], monst_def, extra) #5
+            if monst_hp <= 0:
+                monst_hp = 0
+                print(f"------------------------------")
+                print(f"|You have defeated the monster|")
+                print(f"------------------------------")
+                break
+            print(f"The monster has {monst_hp} hp remaining...")
+            print(f"------------------------------")
+
+            if tired == 1:
+                print(f"------------------------------")
+                print("The monster rests this turn!")
+                print(f"------------------------------")
+                tired = 0
+            else:
+                if pattern == 1:
+                    print(f"------------------------------")
+                    player["hp"] = attack_system.damage_player(player["hp"], monst_atk, player["def"])
+                elif pattern == 2:
+                    print(f"------------------------------")
+                    player["hp"] = attack_system.damage_heavy(player["hp"], monst_atk, player["def"])
+                    tired = 1 #be tired
+                    
+            if player["hp"] <= 0:
+                player["hp"] = 0 #makes sure that it doesn't go into negatives, yeh
+                print(f"------------------------------")
                 print("You died")
                 break
-                
-    else:
-        print("You ran away, coward")
-    
-        
+            print(f"Your HP has been reduced to {player["hp"]}!")
+            print(f"------------------------------")
+            print(f"------------------------------")
+                    
+        else:
+            print("You ran away, coward")
+            break
+
+    if player["hp"] <= 0: #outer loop checker
+        break
