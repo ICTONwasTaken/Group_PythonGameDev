@@ -27,7 +27,7 @@ def damage_player(hp, atk, defe):
     return damage
 
 def damage_heavy(hp, atk, defe):
-    atk += 30
-    damage = damage_player(hp, atk, defe) #WOOOOOOAH YOU CAN LITERALLY JUST PUT IT HERE
+    fd = atk * 2
+    damage = damage_player(hp, fd, defe) #WOOOOOOAH YOU CAN LITERALLY JUST PUT IT HERE
     print(f"The monster is exhausted...")
     return damage

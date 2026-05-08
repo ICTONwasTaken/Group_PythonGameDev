@@ -1,5 +1,20 @@
-print(f"The monster intends to attack for {monst_atk} damage!")
+import attack_system
 
-print(f"The monster exerts itself for {monst_atk} damage!")
+def patpat(pattern, atk):
+    if pattern == 1:
+        print(f"The monster intends to attack for {atk} damage!") #light
 
-print(f"The monster is exhausted, it skips its turn!")
+    if pattern == 2:
+        print(f"The monster intends to deal double damage!") #heavy
+
+
+#attacks
+
+def helit(hp, atk, defe):
+    hp = attack_system.damage_player(hp, atk, defe) #light
+    return hp
+
+def hehit(hp, atk, defe):
+    hp = attack_system.damage_heavy(hp, atk, defe) #heavy
+    return hp
+

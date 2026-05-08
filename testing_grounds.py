@@ -1,6 +1,7 @@
 #for testing code
 from monsters import spawn_monster
 from monsters import monsters
+from monsters_intents import something
 import random, attack_system, math
 
 
@@ -69,11 +70,7 @@ while True: #oh no this looping, WHYYYYYYYY
         print("The monster is tired...") #skip everything else
     else:
         pattern = random.randrange(3, 4) #pick a num 1-3, never plays if tired
-        if pattern == 1:
-            print(f"The monster intends to attack for {monst_atk} damage!")
-
-        if pattern == 2:
-            print(f"The monster exerts itself to deal extra damage!")
+        intend(pattern)
 
     print(monst_hp)
     action = input("Please select your action\n>")
