@@ -20,7 +20,7 @@ name = input("What is your name? ")
 player = { #3
     
     "name": name.capitalize(),
-    "atk": 6,
+    "atk": 200,
     "hp" : 100,
     "def" : 4
     
@@ -42,12 +42,9 @@ def display_menu():
     
 #9
 while True:
-    iny = int(input("choose:"))
-    
-
     #needs here:
     #random int does either battle room, treasure room, hallway (50% to do something), and boss room (only applicable after 10 rooms)
-    if iny == 1:
-        battle.battleloop(player["name"], player["hp"], player["atk"], player["def"])
-    elif iny == 2:
+    if player["hp"] != 0:
+        player["hp"] = battle.battleloop(player["name"], player["hp"], player["atk"], player["def"])
+    else:
         break

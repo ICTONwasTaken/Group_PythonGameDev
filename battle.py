@@ -13,8 +13,7 @@ def battleloop(player_name, player_hp, player_atk, player_def):
     pattern = 0
 
     monst_name, monst_atk, monst_hp, monst_def = spawn_monster() #12
-    print(f"{player_name} encountered a {monst_name}")
-    print(f"~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~")
+    textstuff.spawn(player_name, monst_name)
 
     while True:
         #CHECKER
@@ -27,15 +26,15 @@ def battleloop(player_name, player_hp, player_atk, player_def):
         #DECISION
         display_menu()
         action = input("Action\n>")
-        print(f"---------PLAYER TURN----------")
-            
+
         #PLAYER ATTACK
+        print(f"---------PLAYER TURN----------")
         if action == "1":
             monst_hp = attack_system.damage_monster(player_name, monst_hp, player_atk, monst_def, extra) #5
         
             #is monster dead?
             if monst_hp <= 0:
-                textstuff.defeat(player_name)
+                textstuff.defeat(player_name, monst_name)
                 break
 
             print(f"The {monst_name} has {monst_hp} hp remaining")
@@ -44,6 +43,7 @@ def battleloop(player_name, player_hp, player_atk, player_def):
             pass
         else:
             "invalid"
+            pass
         
         print(f"---------PLAYER TURN----------")
 
@@ -63,8 +63,10 @@ def battleloop(player_name, player_hp, player_atk, player_def):
             
         #r u ded?
         if player_hp <= 0:
-            textstuff.ded()
+            textstuff.ded(player_name)
             break
         
         print(f"{player_name}'s HP Remaining: {player_hp}") #eases on if statements
         print(f"---------MONSTER TURN---------")
+
+    return player_hp
