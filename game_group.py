@@ -21,8 +21,8 @@ name = textstuff.naming()
 player = { #3
     
     "name": name,
-    "atk" : 1,
-    "hp"  : 10,
+    "atk" : 5,
+    "hp"  : 100,
     "def" : 1,
     "cls" : "THIS SHOULDN'T APPEAR"
     
@@ -33,11 +33,12 @@ player["cls"] = class_system.decide(player)
 print(player["cls"])
 
 #10
-while True:
+while player["hp"] > 0: #will this fix monster appear?
     #needs here:
     #random int does either battle room, treasure room, hallway (50% to do something), and boss room (only applicable after 10 rooms)
-    if player["hp"] != 0: #problem: monster keeps appearing in the middle of battle
-        player["hp"] = battle.battleloop(player["name"], player["hp"], player["atk"], player["def"])
-    else:
-        textstuff.ded(player["name"])
-        break
+
+    #problem: monster keeps appearing in the middle of battle
+    player["hp"] = battle.battleloop(player["name"], player["hp"], player["atk"], player["def"])
+
+    textstuff.ded(player["name"])
+    break
