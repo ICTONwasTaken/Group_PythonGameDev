@@ -27,25 +27,25 @@ def battleloop(player_name, player_hp, player_atk, player_def):
         #DECISION
         display_menu()
         action = input("Action\n>")
+        print(f"---------PLAYER TURN----------")
             
         #PLAYER ATTACK
-        (f"---------PLAYER TURN----------")
         if action == "1":
             monst_hp = attack_system.damage_monster(player_name, monst_hp, player_atk, monst_def, extra) #5
-
+        
             #is monster dead?
             if monst_hp <= 0:
                 textstuff.defeat(player_name)
                 break
 
-            print(f"The {monst_name} has {monst_hp} hp remaining...")
-            print(f"---------PLAYER TURN----------")
-
+            print(f"The {monst_name} has {monst_hp} hp remaining")
         #TO BE ADDED (SKILLS)
         elif action == "2":
             pass
         else:
             "invalid"
+        
+        print(f"---------PLAYER TURN----------")
 
         #MONSTER ACTION
         if pattern == 4:
