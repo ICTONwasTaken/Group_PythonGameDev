@@ -16,17 +16,19 @@ def decide(player:dict):
         print(" 1. Meat Shield\n  -Trudging, simple beast with no survival instincts\n  -high defense, low attack")
         print(" 2. Poor Brigand\n  -Frail thief armed with nothing but what it's stolen\n  -low defense, high attack")
         print(" 3. Macabre\n  -A creature capable of confusing magics, most harming itself\n  -mid defense, mid attack")
-        cls = int(input("(1,2,3)>"))
+        cls = input("(1,2,3)>")
         match cls:
-            case 1:
+            case "1":
                 player = meat(player)
                 break
-            case 2:
+            case "2":
                 player = poor(player)
                 break
-            case 3:
+            case "3":
                 player = maca(player)
                 break
+            case "":
+                print("INVALID")
             case _:
                 print("INVALID")
     print(f"--- STATS ---")

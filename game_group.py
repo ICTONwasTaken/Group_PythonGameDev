@@ -16,12 +16,11 @@ import battle, class_system, textstuff
 #13. if kill boss = end x
 
 #2
-# name = textstuff.naming()
+name = textstuff.naming()
 
 player = { #3
     
-    "name": "YOU",
-    # "name": name,
+    "name": name,
     "atk" : 100,
     "hp"  : 1000,
     "hp_max"  : 1000,
@@ -29,15 +28,18 @@ player = { #3
     "mp_max"  : 100,
     "def" : 1,
     "cls" : "THIS SHOULDN'T APPEAR",
-    "poison" : 10
+
+    #debuff counters
+    "poison" : 0,
+    "burned" : 0
     
 }
 if __name__ == "__main__":
-    # player = class_system.decide(player)
-    # input(">")
+    player = class_system.decide(player)
+    input(">")
 
-    # print(f"Welcome to the die, {player['name']}!")
-    # input(">")
+    print(f"Welcome to the die, {player['name']}!")
+    input(">")
 
 # #10
     while player["hp"] > 0: #will this fix monster appear?

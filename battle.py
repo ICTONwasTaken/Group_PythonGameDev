@@ -39,26 +39,27 @@ def battleloop(player:dict):
         #PLAYER DECISION
             monsters_intents.patpat(monster, pattern) #this monster intent
             display_menu()
-            if player['poison'] > 1:
-                player = debuff.poison(player)
-            action = int(input("Action\n>"))
+            debuff.which(player)
+            action = input("Action\n>")
 
             #PLAYER ATTACK
             textstuff.player_turn()
-            if action == 1: #attack
+            if action == "1": #attack
                 monster['hp'] = attack_system.damage_monster(monster, player, extra) #5
                 turn = False
                 #TO BE ADDED (SKILLS)
-            elif action == 2: #defend
+            elif action == "2": #defend
                 print(f"{player['name']} braced for impact... defense increased by 5 this turn!")
                 player["def"] += 5 # Temporary defense boost
                 turn = False
-            elif action == 3: #skill
+            elif action == "3": #skill
                 player, extra = skill_system.skill_menu(player, monster, extra)
-            elif action == 4: #rest
+            elif action == "4": #rest
                 skill_system.skill_rest(player)
-                if player['poison'] > 1:
+                if player['poison'] > 1 or player['burned'] > 1 or player['vulner'] > 1:
                     player['poison'] = 0
+                    player['burned'] = 0
+                    player['vulner'] = 0
                     print(f"{player['name']} also recovers from poison!")
                 turn = False
             else: #if you're too lazy to act

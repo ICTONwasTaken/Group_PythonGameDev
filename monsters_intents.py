@@ -2,27 +2,39 @@ import attack_system, textstuff, random
 
 #randomness
 def randomness(monster:dict, pattern):
-    if monster["level"] == "weak": #light, heavy, tank
-        number =  [1, 2, 3]
-        pattern = random.choices(number, weights=[50, 35, 37], k=1)[0] #light, heavy, tank, anger
-    elif monster["level"] == "medium":
-        number =  [1, 2, 3, 4]
-        pattern = random.choices(number, weights=[50, 35, 25, 37], k=1)[0]
-    elif monster["level"] == "strong":
-        number =  [1, 2, 3, 4, 5]
-        pattern = random.choices(number, weights=[50, 35, 25, 10, 12], k=1)[0] #heavy, block, anger, hyper
-    elif monster["level"] == "heavy":
-        number =  [1, 2, 3, 4]
-        pattern = random.choices(number, weights=[50, 20, 25, 25], k=1)[0] #heavy, no attack, counter, heal
-    elif monster["level"] == "chicken":
-        number =  [1, 2]
-        pattern = random.choices(number, weights=[50, 40], k=1)[0] #light, anger
-    elif monster["level"] == "mara":
-        number =  [1, 2]
-        pattern = random.choices(number, weights=[50, 35, 32, 15, 20], k=1)[0] #light, heavy, block, steal, heal
-    elif monster["level"] == "boss":
-        pattern = random.randrange(1, 7)
-
+    match monster["level"]:
+        case "weak": #light, heavy, tank
+            number =  [1, 2, 3]
+            pattern = random.choices(number, weights=[50, 35, 37], k=1)[0] #light, heavy, tank, anger
+        case "medium":
+            number =  [1, 2, 3, 4]
+            pattern = random.choices(number, weights=[50, 35, 25, 37], k=1)[0]
+        case "strong":
+            number =  [1, 2, 3, 4, 5]
+            pattern = random.choices(number, weights=[50, 35, 25, 10, 12], k=1)[0] #heavy, block, anger, hyper
+        case"heavy":
+            number =  [1, 2, 3, 4]
+            pattern = random.choices(number, weights=[50, 20, 25, 25], k=1)[0] #heavy, no attack, counter, heal
+        case "chicken":
+            number =  [1, 2]
+            pattern = random.choices(number, weights=[50, 40], k=1)[0] #light, anger
+        case "mara":
+            number =  [1, 2, 3, 4, 5]
+            pattern = random.choices(number, weights=[50, 35, 32, 15, 20], k=1)[0] #light, heavy, block, steal, heal
+        case "boss":
+            number =  [1, 2, 3, 4, 5]
+            pattern = random.choices(number, weights=[50, 35, 32, 15, 20], k=1)[0]
+        
+        #phase 0: 500
+        #watch
+        #phase 1: 500
+        #light, heavy, block, flame, anger
+        #phase 2: 350
+        #light, heavy, flame, poison, rage, reckless, fly
+        #phase 3: 80
+        #self destruct
+        #phase 4: 10
+        #watches
     return pattern
 
 #patterns
@@ -38,10 +50,10 @@ def patpat(monster:dict, pattern: int):
             intent_rock(monster, pattern)
         case "chicken":
             intent_chick(monster, pattern)
-        case "thief":
-            pass
+        case "mara":
+            intent_mara(monster, pattern)
         case "boss":
-            pass
+            intent_boss(monster, pattern)
 
 def intent_weak(monster:dict, pattern: int, defe=4):
     dam = monster["atk"] + monster["extra"]
@@ -105,27 +117,44 @@ def intent_rock(monster:dict, pattern: int):
     elif pattern == 4:
         print(f"{monster['name']} looks into his bag...") #heal
 
+def intent_boss(monster:dict, pattern: int):
+    dam = monster["atk"] + monster["extra"]
+    if pattern == 1:
+        print(f"The {monster['name']} unleashes a devastating strike for {dam} damage!") #devastating attack
+    elif pattern == 2:
+        this = dam * 2
+        print(f"The {monster['name']} charges up for a massive blow dealing {this} damage!") #massive attack
+    elif pattern == 3:
+        print(f"The {monster['name']} assumes a defensive stance...") #block
+    elif pattern == 4:
+        print(f"The {monster['name']} glows with ancient power...") #power up
+    elif pattern == 5:
+        print(f"The {monster['name']} roars ferociously...!") #rage
+    elif pattern == 6:
+        print(f"The {monster['name']} begins an ancient incantation...")
+
+#actuall no, screw phases for the boss
+
 def monster_state(monster:dict, player:dict, pattern):
-    if monster['level'] == "weak":
-        monster, player = monster_weak(monster, player, pattern)
+    match monster["level"]:
+        case "weak":
+            monster, player = monster_weak(monster, player, pattern)
+        case "medium":
+            monster, player = monster_mid(monster, player, pattern)
+        case "strong":
+            monster, player = monster_strong(monster, player, pattern)
 
-    elif monster['level'] == "medium":
-        monster, player = monster_mid(monster, player, pattern)
+        case "heavy":
+            monster, player = monster_heavy(monster, player, pattern)
 
-    elif monster['level'] == "strong":
-        monster, player = monster_strong(monster, player, pattern)
+        case "chicken":
+            monster, player = monster_chick(monster, player, pattern)
 
-    elif monster['level'] == "heavy":
-        monster, player = monster_heavy(monster, player, pattern)
+        case "mara":
+            monster, player = monster_mara(monster, player, pattern)
 
-    elif monster['level'] == "chicken":
-        monster, player = monster_chick(monster, player, pattern)
-
-    elif monster['level'] == "mara":
-        monster, player = monster_mara(monster, player, pattern)
-
-    elif monster['level'] == "boss":
-        pass
+        case "boss":
+            pass
     return monster, player
 
 
@@ -241,6 +270,29 @@ def monster_heavy(monster:dict, player:dict, pattern):
         
     return monster, player
 
+def monster_boss(monster:dict, player:dict, pattern):
+    textstuff.monster_turn()
+    if pattern == 1:
+        player["hp"] = attack_system.damage_heavy(monster, player)
+        monster["tired"] = True
+    elif pattern == 2:
+        player["hp"] = attack_system.damage_hyper(monster, player)
+        monster["tired"] = True
+    elif pattern == 3:
+        print(f"The {monster['name']} blocks your attack!")
+    elif pattern == 4:
+        monster['extra'] = monster['extra'] + 2
+        print(f"The {monster['name']}'s power increases! Attack +2!")
+    elif pattern == 5:
+        monster['extra'] = monster['extra'] + 3
+        print(f"The {monster['name']} rages uncontrollably! Attack +3!")
+    elif pattern == 6:
+        damage = (monster["atk"] + monster["extra"]) * 3
+        player["hp"] = player["hp"] - damage
+        print(f"The {monster['name']} unleashes an ultimate attack for {damage} damage!")
+        monster["tired"] = True
+
+    return monster, player
 
 #blocking #resets in main file
 def heblock(monster:dict, pattern):
@@ -259,5 +311,9 @@ def heblock(monster:dict, pattern):
     elif monster['level'] == "strong" and pattern == 2:
         monster['block'] = True
         monster['def'] += 15
+    
+    elif monster['level'] == "boss" and pattern == 3:
+        monster['block'] = True
+        monster['def'] += 20
 
     return monster['def'], monster['block']
