@@ -13,7 +13,6 @@ menu = ["Heavy Strike (5 MP)", "Heal (10 MP)",  "Super Armor (20 MP)", "Status",
 
 #skill menu
 def skill_menu(player:dict, monster:dict, extra:int):
-    while True:
         print(f"--- SKILLS (MP: {player['mp']}) ---")
         for num, skill in enumerate(menu, 1):
             print(f"{num}. {skill}")
@@ -27,12 +26,10 @@ def skill_menu(player:dict, monster:dict, extra:int):
                 textstuff.squigly()
                 print("You feel temporarily powerful!")
                 textstuff.squigly()
-                continue
             else:
                 textstuff.squigly()
                 print("Not enough mana!")
                 textstuff.squigly()
-                continue
                         
         elif skill_choice == 2:
             if player["mp"] >= 10:
@@ -41,10 +38,8 @@ def skill_menu(player:dict, monster:dict, extra:int):
                 textstuff.squigly()
                 print(f"You recovered back up to {player["hp"]}!")
                 textstuff.squigly()
-                continue
             else:
                 print("Not enough mana!")
-                continue 
 
         elif skill_choice == 3:
             if player["mp"] >= 20:
@@ -55,19 +50,15 @@ def skill_menu(player:dict, monster:dict, extra:int):
                 textstuff.squigly()
             else:
                 print("Not enough mana!")
-                continue 
 
         elif skill_choice == 4:
             check(player, monster)
-
-        elif skill_choice == 5:
-            print(f"--- SKILLS END ---\n")
-            return player, extra #has to unpack in order: 
+             #has to unpack in order: 
                             #player["mp"], player["hp"], extra = skill_system.skill_menu(player["mp"],player["hp"], player["hp_max"], extra)
-        
         else:
             print("You move your hands around randomly!")
-            continue
+        print(f"--- SKILLS END ---\n")
+        return player, extra
 
 #healing system
 def skill_heal(hp, hp_max):

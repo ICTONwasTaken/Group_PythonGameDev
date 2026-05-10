@@ -22,8 +22,8 @@ def randomness(monster:dict, pattern):
             number =  [1, 2, 3, 4, 5]
             pattern = random.choices(number, weights=[50, 35, 32, 15, 20], k=1)[0] #light, heavy, block, steal, heal
         case "boss":
-            number =  [1, 2, 3, 4, 5]
-            pattern = random.choices(number, weights=[50, 35, 32, 15, 20], k=1)[0]
+            number =  [1, 2, 3, 4, 5, 6]
+            pattern = random.choices(number, weights=[50, 35, 37, 15, 20, 10], k=1)[0]
         
         #phase 0: 500
         #watch
@@ -154,7 +154,7 @@ def monster_state(monster:dict, player:dict, pattern):
             monster, player = monster_mara(monster, player, pattern)
 
         case "boss":
-            pass
+            monster, player = monster_boss(monster, player, pattern)
     return monster, player
 
 

@@ -46,7 +46,7 @@ def nothing(name):
         print(f"{name} thinks this is Pokemon!")
     elif nothing == 7:
         print(f"{name} wants to see how much it hurts!")
-    elif nothing == 7:
+    elif nothing == 8:
         print(f"{name} wants to share the turn!")
 
 def naming():

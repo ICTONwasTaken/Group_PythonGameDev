@@ -1,7 +1,7 @@
-import attack_system, random, monsters_intents, textstuff, skill_system, debuff
+import attack_system, random, monsters_intents, textstuff, skill_system, debuff, inventory
 from monsters import spawn_monster
 
-menu = ["1. Attack", "2. Defend", "3. Skill", "4. Rest"]
+menu = ["1. Attack", "2. Defend", "3. Skill", "4. Rest","5. Inventory"]
 
 def display_menu():
     for menu_item in menu:
@@ -56,18 +56,20 @@ def battleloop(player:dict):
                 player, extra = skill_system.skill_menu(player, monster, extra)
             elif action == "4": #rest
                 skill_system.skill_rest(player)
-                if player['poison'] > 1 or player['burned'] > 1 or player['vulner'] > 1:
+                if player['poison'] > 1 or player['burned'] > 1:
                     player['poison'] = 0
                     player['burned'] = 0
-                    player['vulner'] = 0
                     print(f"{player['name']} also recovers from poison!")
                 turn = False
+            elif action == "5": #item
+                player, extra = inventory.inven_menu(player, monster, extra)
             else: #if you're too lazy to act
                 textstuff.nothing(player["name"])
                 turn = False
 
         if monster['hp'] <= 0:
             textstuff.defeat(player["name"], monster['name'])
+            player = inventory.give_reward(player)
             break
         print(f"The {monster['name']} has {monster['hp']} hp remaining")
         textstuff.player_turn()
