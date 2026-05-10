@@ -68,7 +68,7 @@ potions = [
 def give_reward(player: dict):
     item = random.choice(potions)
 
-    print(f"You found: {item['name']}!")
+    print(f"Oh, you found a... {item['name']}!")
 
     # try to add into empty slot
     for slot in player["inventory"]:

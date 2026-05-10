@@ -69,6 +69,7 @@ def battleloop(player:dict):
 
         if monster['hp'] <= 0:
             textstuff.defeat(player["name"], monster['name'])
+            print(f"--- BATTLE END ---")
             player = inventory.give_reward(player)
             break
         print(f"The {monster['name']} has {monster['hp']} hp remaining")
