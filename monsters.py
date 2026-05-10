@@ -38,7 +38,7 @@ def build_monster(monster_tuple):
         "is_boss": is_boss,
         "extra": 0,
         "block": False,
-        "tired": Fals
+        "tired": False
     }
 
 def defeat_monster(monster, player_gold):
