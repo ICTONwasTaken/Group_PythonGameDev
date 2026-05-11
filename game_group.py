@@ -1,7 +1,7 @@
 import battle, class_system, textstuff, navigation
 
 #REQUIREMENTS
-#1. dungeon game x
+#1. dungeon game /
 #2. player name add /
 #3. stats /
 #4. classes /
@@ -16,16 +16,12 @@ import battle, class_system, textstuff, navigation
 #13. if kill boss = end /
 
 #2
-# name = textstuff.naming()
+name = textstuff.naming()
 
 player = { #3
     
-    "name": "name",
-<<<<<<< Updated upstream
-    "atk" : 100,
-=======
+    "name": name,
     "atk" : 1000,
->>>>>>> Stashed changes
     "hp"  : 1000,
     "hp_max"  : 1000,
     "mp"  : 100,
@@ -44,14 +40,14 @@ player = { #3
                 }
 }
 if __name__ == "__main__":
-    # # player = class_system.decide(player)
-    # input(">") #nothing
+    player = class_system.decide(player)
+    input(">") #nothing
 
-    # print(f"Welcome to the die, {player['name']}!")
-    # input(">") #nothing
+    print(f"Welcome to the die, {player['name']}!")
+    input(">") #nothing
 
     #room navigation
-    room = 9
+    room = 0
 # #10
     while player["hp"] > 0:
         player, room = navigation.navigation_system(player, room)
