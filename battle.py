@@ -59,7 +59,7 @@ def battleloop(player:dict):
                 if player['poison'] > 1 or player['burned'] > 1:
                     player['poison'] = 0
                     player['burned'] = 0
-                    print(f"{player['name']} also recovers from poison!")
+                    print(f"{player['name']} also recovers from their ailment!")
                 turn = False
             elif action == "5": #item
                 player, extra = inventory.inven_menu(player, monster, extra)

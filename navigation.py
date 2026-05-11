@@ -2,51 +2,58 @@ from monsters import battle_count
 import inventory
 import random
 
-def navigation_system(player:dict, room):
+rooms = (
+"hall",
+"heal",
+"trap"
+)
 
+around = (
+"treasure",
+"trap",
+"nothing"
+)
+
+checked = False
+
+def navigation_system(player:dict, room):
+    global checked
     while True:
 
         print("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~")
         print("Where would you go?")
-        print("1. Left")
-        print("2. Right")
+        print("1. Forward")
+        print("2. Look around")
 
         choice = input("> ")
 
         if choice == "1":
-            print("You go left...")
+            print("You proceed through the dungeon...")
+            checked = False
             room += 1
+            thing = random.choice(rooms)
+            if thing == "hall":
+                room_hall()
+            elif thing == "trap":
+                player = room_trap(player)
+            elif thing == "heal":
+                player = room_heal(player)
             break
 
         elif choice == "2":
-            room -= 1
+            if checked == False:
+                print("You look around the room...")
+                checked = True
 
-            if room < 0:
-                room = 0
-                print("You hit a dead end!")
-
-            break
-
-        else:
-            print("You run around in circles!")
-
-        if battle_count == 5 or room == 5:
-            player = room_heal(player)
-            room += 1
-            continue
-
-        elif room == 10 or 7 or 16:
-            room_hall()
-            room += 1
-            continue
-
-        elif room == 4 or 8:
-            room_trap(player)
-            room += 1
-
-        elif room == 1 or 6 or 14:
-            room_treasure(player)
-            room += 1
+                thing = random.choice(around)
+                if thing == "trap":
+                    player = room_trap(player)
+                elif thing == "treasure":
+                    player = room_treasure(player)
+                elif thing == "nothing":
+                    room_nothing()
+            else:
+                print("You already looked around this room")
 
     print(f"\nYou are now in room {room}")
 
@@ -58,13 +65,14 @@ def navigation_system(player:dict, room):
     return player, room
 
 def room_treasure(player:dict):
-    input(f"You clambor around the room...")
     player = inventory.give_reward(player)
     return player
 
 def room_hall():
-    input("The wind whistles by and bounces throughout the halls.")
-    input(f"There doesn't appear to be anything here...")
+    input("The hall's winds pick up on something...!")
+
+def room_nothing():
+    input("You don't find anything notable...")
 
 def room_trap(player):
     randomint = random.randrange(1,6)
@@ -83,7 +91,7 @@ def room_trap(player):
         
 
 def room_heal(player:dict):
-    randomint = random.randrange(1,5)
+    randomint = random.randrange(1,6)
     
     if randomint == 5:
         input(f"You find a poison swamp, nasty!")

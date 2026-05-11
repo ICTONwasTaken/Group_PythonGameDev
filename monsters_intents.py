@@ -2,41 +2,6 @@ import attack_system, textstuff, random
 
 #randomness
 def randomness(monster:dict, pattern):
-<<<<<<< Updated upstream
-    match monster["level"]:
-        case "weak": #light, heavy, tank
-            number =  [1, 2, 3]
-            pattern = random.choices(number, weights=[50, 35, 37], k=1)[0] #light, heavy, tank, anger
-        case "medium":
-            number =  [1, 2, 3, 4]
-            pattern = random.choices(number, weights=[50, 35, 25, 37], k=1)[0]
-        case "strong":
-            number =  [1, 2, 3, 4, 5]
-            pattern = random.choices(number, weights=[50, 35, 25, 10, 12], k=1)[0] #heavy, block, anger, hyper
-        case"heavy":
-            number =  [1, 2, 3, 4]
-            pattern = random.choices(number, weights=[50, 20, 25, 25], k=1)[0] #heavy, no attack, counter, heal
-        case "chicken":
-            number =  [1, 2]
-            pattern = random.choices(number, weights=[50, 40], k=1)[0] #light, anger
-        case "mara":
-            number =  [1, 2, 3, 4, 5]
-            pattern = random.choices(number, weights=[50, 35, 32, 15, 20], k=1)[0] #light, heavy, block, steal, heal
-        case "boss":
-            number =  [1, 2, 3, 4, 5, 6]
-            pattern = random.choices(number, weights=[50, 35, 37, 15, 20, 10], k=1)[0]
-        
-        #phase 0: 500
-        #watch
-        #phase 1: 500
-        #light, heavy, block, flame, anger
-        #phase 2: 350
-        #light, heavy, flame, poison, rage, reckless, fly
-        #phase 3: 80
-        #self destruct
-        #phase 4: 10
-        #watches
-=======
     if monster["level"] == "weak": #light, heavy, tank
         number =  [1, 2, 3]
         pattern = random.choices(number, weights=[50, 35, 37], k=1)[0] #light, heavy, tank, anger
@@ -59,7 +24,6 @@ def randomness(monster:dict, pattern):
         number =  [1, 2, 3, 4, 5, 6, 7]
         pattern = random.choices(number, weights=[50, 35, 32, 15, 20, 20, 20], k=1)[0] #light, heavy, block, steal, heal
 
->>>>>>> Stashed changes
     return pattern
 
 #patterns

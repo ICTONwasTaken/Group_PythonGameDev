@@ -1,22 +1,30 @@
 from random import choice
 monsters = [
-    #("Titanite Statue", 25, 200, 15, "strong", "A hulking living metal beast"), #complete
-
-    ("Angry Chicken", 50, 10, 1, "chicken", "What is this doing here??"), #complete
-
-    #("Havel the Rock", 8, 200, 200, "heavy", "A priest of rock, very little can pierce his armor"), #complete
-
-    #("Marauder", 10, 11, 5, "mara", "Don't care if you die, I'll get your items either way!"),
-
-    #("Hollow", 5, 10, 1, "medium", "A charred, mindless husk of what was."), #complete
-
-    #("Skeleton", 3, 5, 0, "weak", "Limbering about, it desires skin to become whole.") #complete
-
-    #("Dragon", 45, 500, 50, "boss", "Guardian of the dungeon's end. Here, it's Either die or gain glory.")
+    ("Titanite Statue", 25, 200, 15, "strong", "A hulking living metal beast", 50, False),
+    ("Angry Chicken", 50, 10, 1, "chicken", "What is this doing here??", 1, False),
+    ("Havel the Rock", 8, 200, 200, "heavy", "A priest of rock, very little can pierce his armor", 75, False),
+    ("Marauder", 10, 11, 5, "mara", "Don't care if you die, I'll get your items either way!", 20, False),
+    ("Hollow", 5, 10, 1, "medium", "A charred, mindless husk of what was.", 10, False),
+    ("Skeleton", 3, 5, 0, "weak", "Limbering about, it desires skin to become whole.", 5, False),
+    ("Dragon Lord", 60, 300, 50, "boss", "The ancient ruler of flame and ruin.", 500, True)  # Big Boss
 ]
-#cheat sheet: monst_name, monst_atk, monst_hp, monst_def, monst_level, lore
+
+battle_count = 0
+
 def spawn_monster():
-    name, atk, hp, defe, level, lore = choice(monsters)
+    global battle_count
+    battle_count += 1
+    
+    # Boss spawns after 5 battles
+    if battle_count >= 5:
+        boss = [m for m in monsters if m[7] is True][0]
+        return build_monster(boss)
+    
+    # Otherwise spawn a random non-boss monster
+    return build_monster(choice([m for m in monsters if not m[7]]))
+
+def build_monster(monster_tuple):
+    name, atk, hp, defe, level, lore, gold, is_boss = monster_tuple
 
     return {
         "name": name,
@@ -25,24 +33,20 @@ def spawn_monster():
         "def": defe,
         "level": level,
         "lore": lore,
+        "gold": gold,
+        "is_boss": is_boss,
         "extra": 0,
         "block": False,
-        "tired": False
+        "tired" : False
     }
 
-<<<<<<< Updated upstream
-=======
-def defeat_monster(monster, player):
-    print(f"% * * * * * * * * * * * * * * %")
-    print(f"{player['name']} defeated the {monster['name']}!")
-    print(f"% * * * * * * * * * * * * * * %\n")
+def defeat_monster(monster, player:dict):
+    print(f"You defeated {monster['name']} and gained {monster['gold']} gold!")
     
     if monster["is_boss"]:
         print("🔥 You have slain the Boss! Dungeon Cleared! 🔥")
         exit()  # End game
 
-
->>>>>>> Stashed changes
 ##Needs:
 #MORE MONSTERS
 #BIG BOSS
