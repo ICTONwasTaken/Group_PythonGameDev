@@ -30,6 +30,19 @@ def spawn_monster():
         "tired": False
     }
 
+<<<<<<< Updated upstream
+=======
+def defeat_monster(monster, player):
+    print(f"% * * * * * * * * * * * * * * %")
+    print(f"{player['name']} defeated the {monster['name']}!")
+    print(f"% * * * * * * * * * * * * * * %\n")
+    
+    if monster["is_boss"]:
+        print("🔥 You have slain the Boss! Dungeon Cleared! 🔥")
+        exit()  # End game
+
+
+>>>>>>> Stashed changes
 ##Needs:
 #MORE MONSTERS
 #BIG BOSS

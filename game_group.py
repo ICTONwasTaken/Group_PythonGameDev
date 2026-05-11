@@ -1,4 +1,4 @@
-import battle, class_system, textstuff
+import battle, class_system, textstuff, navigation
 
 #REQUIREMENTS
 #1. dungeon game x
@@ -13,7 +13,7 @@ import battle, class_system, textstuff
 #10. menu /
 #11. monster attacking /
 #12. monster spawning /
-#13. if kill boss = end x
+#13. if kill boss = end /
 
 #2
 # name = textstuff.naming()
@@ -21,7 +21,11 @@ import battle, class_system, textstuff
 player = { #3
     
     "name": "name",
+<<<<<<< Updated upstream
     "atk" : 100,
+=======
+    "atk" : 1000,
+>>>>>>> Stashed changes
     "hp"  : 1000,
     "hp_max"  : 1000,
     "mp"  : 100,
@@ -40,17 +44,16 @@ player = { #3
                 }
 }
 if __name__ == "__main__":
-    # player = class_system.decide(player)
-    # input(">")
+    # # player = class_system.decide(player)
+    # input(">") #nothing
 
     # print(f"Welcome to the die, {player['name']}!")
-    # input(">")
+    # input(">") #nothing
 
+    #room navigation
+    room = 9
 # #10
-    while player["hp"] > 0: #will this fix monster appear?
-        #needs here:
-        #random int does either battle room, treasure room, hallway (50% to do something), and boss room (only applicable after 10 rooms)
-
+    while player["hp"] > 0:
+        player, room = navigation.navigation_system(player, room)
         player["hp"] = battle.battleloop(player)
-
     textstuff.ded(player["name"])

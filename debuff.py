@@ -7,7 +7,11 @@ def poison(player:dict):
     return player
 
 def burned(player:dict):
+<<<<<<< Updated upstream
     player['hp'] -= 5
+=======
+    player['hp'] -= 8
+>>>>>>> Stashed changes
     player['burned'] -= 1
 
     print(f"Burned(-8HP per turn): {player['burned']} turns remaining")

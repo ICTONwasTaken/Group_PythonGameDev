@@ -1,5 +1,9 @@
 import attack_system, random, monsters_intents, textstuff, skill_system, debuff, inventory
+<<<<<<< Updated upstream
 from monsters import spawn_monster
+=======
+from monsters import spawn_monster, defeat_monster
+>>>>>>> Stashed changes
 
 menu = ["1. Attack", "2. Defend", "3. Skill", "4. Rest","5. Inventory"]
 
@@ -68,10 +72,15 @@ def battleloop(player:dict):
                 turn = False
 
         if monster['hp'] <= 0:
+<<<<<<< Updated upstream
             textstuff.defeat(player["name"], monster['name'])
+=======
+            defeat_monster(monster, player)
+>>>>>>> Stashed changes
             print(f"--- BATTLE END ---")
             player = inventory.give_reward(player)
             break
+        
         print(f"The {monster['name']} has {monster['hp']} hp remaining")
         textstuff.player_turn()
 
@@ -80,7 +89,7 @@ def battleloop(player:dict):
             textstuff.rest(monster['name'])
             monster['tired'] = False
         else:
-           monster, player = monsters_intents.monster_state(monster, player, pattern)
+            monster, player = monsters_intents.monster_state(monster, player, pattern)
 
         #r u ded?
         if player["hp"] <= 0:
