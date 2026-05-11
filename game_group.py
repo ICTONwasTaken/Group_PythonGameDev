@@ -7,7 +7,7 @@ import battle, class_system, textstuff
 #4. classes /
 #5. ATTACK /
 #6. defense and skill /
-#7. inventory system x
+#7. inventory system /
 #8. If die = end /
 #9. game loop /
 #10. menu /

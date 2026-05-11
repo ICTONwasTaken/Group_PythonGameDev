@@ -27,7 +27,7 @@ def spawn_monster():
         "lore": lore,
         "extra": 0,
         "block": False,
-        "tired" : False
+        "tired": False
     }
 
 ##Needs:

@@ -2,6 +2,7 @@ import attack_system, textstuff, random
 
 #randomness
 def randomness(monster:dict, pattern):
+<<<<<<< Updated upstream
     match monster["level"]:
         case "weak": #light, heavy, tank
             number =  [1, 2, 3]
@@ -35,6 +36,30 @@ def randomness(monster:dict, pattern):
         #self destruct
         #phase 4: 10
         #watches
+=======
+    if monster["level"] == "weak": #light, heavy, tank
+        number =  [1, 2, 3]
+        pattern = random.choices(number, weights=[50, 35, 37], k=1)[0] #light, heavy, tank, anger
+    elif monster["level"] == "medium":
+        number =  [1, 2, 3, 4]
+        pattern = random.choices(number, weights=[50, 35, 25, 37], k=1)[0]
+    elif monster["level"] == "strong":
+        number =  [1, 2, 3, 4, 5]
+        pattern = random.choices(number, weights=[50, 35, 25, 10, 12], k=1)[0] #heavy, block, anger, hyper
+    elif monster["level"] == "heavy":
+        number =  [1, 2, 3, 4]
+        pattern = random.choices(number, weights=[50, 20, 25, 25], k=1)[0] #heavy, no attack, counter, heal
+    elif monster["level"] == "chicken":
+        number =  [1, 2]
+        pattern = random.choices(number, weights=[50, 40], k=1)[0] #light, anger
+    elif monster["level"] == "mara":
+        number =  [1, 2, 3, 4, 5]
+        pattern = random.choices(number, weights=[50, 35, 32, 15, 20], k=1)[0] #light, heavy, block, steal, heal
+    elif monster["level"] == "boss":
+        number =  [1, 2, 3, 4, 5, 6, 7]
+        pattern = random.choices(number, weights=[50, 35, 32, 15, 20, 20, 20], k=1)[0] #light, heavy, block, steal, heal
+
+>>>>>>> Stashed changes
     return pattern
 
 #patterns
